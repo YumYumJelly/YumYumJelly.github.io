@@ -1,5 +1,10 @@
-#month {
+#this-month {
 	font-weight: bold;
+}
+
+#today {
+	background-color: teal;
+	color: white;
 }
 
 .saturday {
