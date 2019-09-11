@@ -12,8 +12,8 @@ let today = new Date();
 let year = today.getFullYear();
 let thisMonth = today.getMonth();
 let first = new Date(year, thisMonth, 1);
-document.querySelector('#prev').addEventListener('click', generateFirstDate);
-document.querySelector('#next').addEventListener('click', generateFirstDate);
+document.querySelector('#prev').addEventListener('click', generateBaseDate);
+document.querySelector('#next').addEventListener('click', generateBaseDate);
 let endMonth = new Date(year, thisMonth + 1, 0);
 
 generateThisMonthHead();
@@ -21,14 +21,14 @@ generateThead();
 generateCalendar(first.getDate(), first.getDay(), endMonth.getDate(), DISP_ROW);
 console.log(first);
 
+// generate this month (h2 node)
 function generateThisMonthHead() {
-	// generate this month
 	let calendarPara = document.querySelector('#this-month');
 	calendarPara.appendChild(document.createTextNode(MONTH[thisMonth]));
 }
 
+// generate thead row
 function generateThead() {
-	// generate thead row
 	for(let i = 0; i < WEEK.length; i++) {
 		let th = document.createElement('th');
 		thead.appendChild(th);
@@ -38,7 +38,7 @@ function generateThead() {
 	}
 }
 
-function generateFirstDate() {
+function generateBaseDate() {
 	// WIP: implement behavior of previous/next month button & generate data 
 	if(event.target.id == 'prev') {
 		thisMonth--;
@@ -51,7 +51,16 @@ function generateFirstDate() {
 	endMonth = new Date(year, thisMonth + 1, 0);
 	console.log(year, thisMonth);
 	console.log(first);
-	//generateCalendar(first.getDate(), first.getDay(), endMonth.getDate(), DISP_ROW);
+	removeTbody();
+	generateCalendar(first.getDate(), first.getDay(), endMonth.getDate(), DISP_ROW);
+}
+
+// if calendar exists already, remove old calendar (remove table rows)
+function removeTbody() {
+	let tbody = tableRef.querySelector('tbody');
+	while(tbody.firstChild) {
+		tbody.removeChild(tbody.firstChild);
+	}
 }
 
 // generate date of this month
