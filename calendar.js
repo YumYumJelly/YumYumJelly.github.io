@@ -12,23 +12,29 @@ let today = new Date();
 let year = today.getFullYear();
 let thisMonth = today.getMonth();
 let first = new Date(year, thisMonth, 1);
-document.querySelector('#prev').addEventListener('click', generateBaseDate);
-document.querySelector('#next').addEventListener('click', generateBaseDate);
 let endMonth = new Date(year, thisMonth + 1, 0);
 
-generateThisMonthHead();
-generateThead();
+generateYearMonthHead();
+generateCalendarHead();
 generateCalendar(first.getDate(), first.getDay(), endMonth.getDate(), DISP_ROW);
+document.querySelector('#prev').addEventListener('click', changeMonth);
+document.querySelector('#next').addEventListener('click', changeMonth);
 console.log(first);
+console.log(MONTH);
 
-// generate this month (h2 node)
-function generateThisMonthHead() {
+// generate this month (h1 node)
+function generateYearMonthHead() {
 	let calendarPara = document.querySelector('#this-month');
-	calendarPara.appendChild(document.createTextNode(MONTH[thisMonth]));
+	// adjust MONTH index
+	let index = thisMonth;
+	if(thisMonth >= MONTH.length) index = thisMonth % MONTH.length;
+	if(thisMonth < 0) index = MONTH.length - 1;
+	console.log(thisMonth, index);
+	calendarPara.appendChild(document.createTextNode(first.getFullYear() + ' ' + MONTH[index]));
 }
 
 // generate thead row
-function generateThead() {
+function generateCalendarHead() {
 	for(let i = 0; i < WEEK.length; i++) {
 		let th = document.createElement('th');
 		thead.appendChild(th);
@@ -38,7 +44,7 @@ function generateThead() {
 	}
 }
 
-function generateBaseDate() {
+function changeMonth() {
 	// WIP: implement behavior of previous/next month button & generate data 
 	if(event.target.id == 'prev') {
 		thisMonth--;
@@ -53,6 +59,14 @@ function generateBaseDate() {
 	console.log(first);
 	removeTbody();
 	generateCalendar(first.getDate(), first.getDay(), endMonth.getDate(), DISP_ROW);
+	removeThisMonth();
+	generateYearMonthHead();
+}
+
+// if calendar exists already, remove old calendar (remove table rows)
+function removeThisMonth() {
+	let thisMonth = document.querySelector('#this-month');
+	thisMonth.removeChild(thisMonth.firstChild);
 }
 
 // if calendar exists already, remove old calendar (remove table rows)
