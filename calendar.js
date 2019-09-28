@@ -19,16 +19,15 @@ generateCalendarHead();
 generateCalendar(first.getDate(), first.getDay(), endMonth.getDate(), DISP_ROW);
 document.querySelector('#prev').addEventListener('click', changeMonth);
 document.querySelector('#next').addEventListener('click', changeMonth);
-console.log(first);
-console.log(MONTH);
+//console.log(first);
+//console.log(MONTH);
 
 // generate this month (h1 node)
 function generateYearMonthHead() {
 	let calendarPara = document.querySelector('#this-month');
 	// adjust MONTH index
-	let index = thisMonth;
-	if(thisMonth >= MONTH.length) index = thisMonth % MONTH.length;
-	if(thisMonth < 0) index = MONTH.length - 1;
+	let index = (thisMonth % MONTH.length >= 0) ? thisMonth % MONTH.length : MONTH.length + thisMonth % MONTH.length;
+//	if(thisMonth < 0) index = MONTH.length + thisMonth % MONTH.length;
 	console.log(thisMonth, index);
 	calendarPara.appendChild(document.createTextNode(first.getFullYear() + ' ' + MONTH[index]));
 }
@@ -105,5 +104,10 @@ function setHolidayAttr(cellRef, dayIndex) {
 
 // append today attr
 function setTodayAttr(cellRef, date) {
-	if(date == today.getDate()) cellRef.setAttribute('id', 'today');
+	let now =  new Date();
+	let nYear = now.getFullYear();
+	let nMonth = now.getMonth();
+	if(year == nYear && thisMonth == nMonth && date == today.getDate()) {
+		cellRef.setAttribute('id', 'today');
+	}
 }
