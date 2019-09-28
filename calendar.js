@@ -19,8 +19,6 @@ generateCalendarHead();
 generateCalendar(first.getDate(), first.getDay(), endMonth.getDate(), DISP_ROW);
 document.querySelector('#prev').addEventListener('click', changeMonth);
 document.querySelector('#next').addEventListener('click', changeMonth);
-//console.log(first);
-//console.log(MONTH);
 
 // generate this month (h1 node)
 function generateYearMonthHead() {
@@ -28,7 +26,6 @@ function generateYearMonthHead() {
 	// adjust MONTH index
 	let index = (thisMonth % MONTH.length >= 0) ? thisMonth % MONTH.length : MONTH.length + thisMonth % MONTH.length;
 //	if(thisMonth < 0) index = MONTH.length + thisMonth % MONTH.length;
-	console.log(thisMonth, index);
 	calendarPara.appendChild(document.createTextNode(first.getFullYear() + ' ' + MONTH[index]));
 }
 
@@ -54,8 +51,6 @@ function changeMonth() {
 		first = new Date(year, thisMonth, 1);
 	}
 	endMonth = new Date(year, thisMonth + 1, 0);
-	console.log(year, thisMonth);
-	console.log(first);
 	removeTbody();
 	generateCalendar(first.getDate(), first.getDay(), endMonth.getDate(), DISP_ROW);
 	removeThisMonth();
