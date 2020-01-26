@@ -5,9 +5,6 @@ const DISP_ROW = 5;
 
 let tableRef = document.getElementById(TABLE_ID);
 let thead = tableRef.createTHead();
-/* test: month index starts zero
-let today = new Date(2019, 7, 31);
-*/
 let today = new Date();
 let year = today.getFullYear();
 let thisMonth = today.getMonth();
@@ -25,7 +22,6 @@ function generateYearMonthHead() {
 	let calendarPara = document.querySelector('#this-month');
 	// adjust MONTH index
 	let index = (thisMonth % MONTH.length >= 0) ? thisMonth % MONTH.length : MONTH.length + thisMonth % MONTH.length;
-//	if(thisMonth < 0) index = MONTH.length + thisMonth % MONTH.length;
 	calendarPara.appendChild(document.createTextNode(first.getFullYear() + ' ' + MONTH[index]));
 }
 
@@ -41,7 +37,6 @@ function generateCalendarHead() {
 }
 
 function changeMonth() {
-	// WIP: implement behavior of previous/next month button & generate data 
 	if(event.target.id == 'prev') {
 		thisMonth--;
 		first = new Date(year, thisMonth, 1);
