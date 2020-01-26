@@ -1,2 +1,2 @@
 # YumYumJelly.github.io
-for self-study
+自習用です

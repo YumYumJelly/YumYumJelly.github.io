@@ -5,9 +5,6 @@ const DISP_ROW = 5;
 
 let tableRef = document.getElementById(TABLE_ID);
 let thead = tableRef.createTHead();
-/* test: month index starts zero
-let today = new Date(2019, 7, 31);
-*/
 let today = new Date();
 let year = today.getFullYear();
 let thisMonth = today.getMonth();
@@ -19,16 +16,12 @@ generateCalendarHead();
 generateCalendar(first.getDate(), first.getDay(), endMonth.getDate(), DISP_ROW);
 document.querySelector('#prev').addEventListener('click', changeMonth);
 document.querySelector('#next').addEventListener('click', changeMonth);
-//console.log(first);
-//console.log(MONTH);
 
 // generate this month (h1 node)
 function generateYearMonthHead() {
 	let calendarPara = document.querySelector('#this-month');
 	// adjust MONTH index
 	let index = (thisMonth % MONTH.length >= 0) ? thisMonth % MONTH.length : MONTH.length + thisMonth % MONTH.length;
-//	if(thisMonth < 0) index = MONTH.length + thisMonth % MONTH.length;
-	console.log(thisMonth, index);
 	calendarPara.appendChild(document.createTextNode(first.getFullYear() + ' ' + MONTH[index]));
 }
 
@@ -44,7 +37,6 @@ function generateCalendarHead() {
 }
 
 function changeMonth() {
-	// WIP: implement behavior of previous/next month button & generate data 
 	if(event.target.id == 'prev') {
 		thisMonth--;
 		first = new Date(year, thisMonth, 1);
@@ -54,8 +46,6 @@ function changeMonth() {
 		first = new Date(year, thisMonth, 1);
 	}
 	endMonth = new Date(year, thisMonth + 1, 0);
-	console.log(year, thisMonth);
-	console.log(first);
 	removeTbody();
 	generateCalendar(first.getDate(), first.getDay(), endMonth.getDate(), DISP_ROW);
 	removeThisMonth();
