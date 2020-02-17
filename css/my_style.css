@@ -1,3 +1,11 @@
+.select-list > li {
+	float: left;
+}
+
+ul, ol, li {
+	list-style-type: none;
+}
+
 #this-month {
 	font-weight: bold;
 }
